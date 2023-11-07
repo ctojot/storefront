@@ -1,15 +1,25 @@
-import './App.css'
-import CandidateList from './components/CandidateList';
-import store from './store';
+import React from 'react';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
+import Categories from './Components/Categories';
+import Products from './Components/Products';
+import categoriesReducer, { setActiveCategory } from './store/categories';
 
-function App() {
+const rootReducer = combineReducers({
+  categories: categoriesReducer,
+});
 
+const store = createStore(rootReducer);
+
+const App = () => {
   return (
     <Provider store={store}>
-      <CandidateList />
+      <div>
+        <Categories />
+        <Products />
+      </div>
     </Provider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
