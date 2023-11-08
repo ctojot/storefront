@@ -1,25 +1,46 @@
 'use strict';
 
+// Where the reducers live
 
 const initialState = {
-  selectedCategory: null,
-};
+  list:
+    [{
+      name: 'ALL',
+      displayName: 'ALL',
+    }, {
+      name: 'CLOTHES',
+      displayName: 'T-Shirt',
+    }, {
+      name: 'TECH',
+      displayName: 'Smart Phone',
+    }, {
+      name: 'MISC',
+      displayName: 'AT2020usb+',
+    }],
+  activeCategory: {
+    name: 'ALL',
+    displayName: 'All'
+  }
+}
 
-const categoriesReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_ACTIVE_CATEGORY':
+const reducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case 'CATEGORY_SELECTED':
       return {
         ...state,
-        selectedCategory: action.payload,
-      };
+        activeCategory: payload
+      }
     default:
       return state;
+  }  
+}
+
+export const selectCategory = (category) => {
+  return {
+    type: 'CATEGORY_SELECTED',
+    payload: category,
   }
-};
+}
 
-export const setActiveCategory = (categoryId) => ({
-  type: 'SET_ACTIVE_CATEGORY',
-  payload: categoryId,
-});
-
-export default categoriesReducer;
+export default reducer;
