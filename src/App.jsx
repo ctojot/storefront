@@ -1,25 +1,23 @@
 import React from 'react';
-import { createStore, combineReducers } from 'redux';
+import Header from './Components/Header/index';
+import Footer from './Components/Footer/index';
+import Categories from './Components/Categories/index';
 import { Provider } from 'react-redux';
-import Categories from './Components/Categories';
-import Products from './Components/Products';
-import categoriesReducer, { setActiveCategory } from './store/categories';
+import Products from './Components/Products/index';
+import store from './store';
+import './App.css'
 
-const rootReducer = combineReducers({
-  categories: categoriesReducer,
-});
-
-const store = createStore(rootReducer);
-
-const App = () => {
+function App() {
+  const storeName = 'Clothing Store';
   return (
-    <Provider store={store}>
-      <div>
-        <Categories />
-        <Products />
-      </div>
+  
+    <Provider store ={store}>
+      <Header storeName={storeName}/>
+      <Categories />
+      <Products />
+      <Footer />
     </Provider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

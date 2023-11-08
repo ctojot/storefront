@@ -4,15 +4,12 @@
 import { createStore, combineReducers } from 'redux';
 import categoriesReducer from './categories';
 import productsReducer from './products';
-import activeCategoryReducer from './active-category';
 
-const rootReducer = combineReducers({
+const reducer = combineReducers({
   categories: categoriesReducer,
   products: productsReducer,
-  activeCategory: activeCategoryReducer, // Add activeCategory reducer
-  // Add other reducers if needed
 });
 
-const store = createStore(rootReducer);
 
-export default store;
+
+export default createStore(reducer);

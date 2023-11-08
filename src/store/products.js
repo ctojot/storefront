@@ -1,42 +1,56 @@
-// 'use strict';
+'use strict';
 
-// const initialState = {
-//   totalVotes: 0,
-//   candidates: [
-//     {name: 'Jacob', votes: 0},
-//     {name: 'JB', votes: 0},
-//     {name: 'John', votes: 0}
-//   ],
-// }
+const initialState = {
+  displayList: [],
+  list: [{
+    category: 'CLOTHES',
+    name: 'T-Shirt',
+    description: 'Plain white T-shirt',
+    price: 10,
+    inventory: 45,
+  },
+  {
+    category: 'TECH',
+    name: 'Smart Phone',
+    description: 'Android Smart Phone',
+    price: 250,
+    inventory: 6,
+  },
+  {
+    category: 'MISC',
+    name: 'AT2020+usb',
+    description: 'Audio Technica cardioid microphone',
+    price: 100,
+    inventory: 20,
+  }],
+  activeCategory: {
+    name: 'ALL',
+    displayName: 'ALL'
+  }
+}
 
-// function reducer(state = initialState, action) {
-//   const { type, payload } =  action;
-//   switch(type) {
-//     case 'INCREMENT_VOTES':
-//       return {
-//         candidates: state.candidates.map(candidate => {
-//           if (candidate.name === payload) {
-//             return {
-//               ...candidate,
-//               votes: candidate.votes + 1 // the one change we want to make to a 'candidate' object
-//             }
-//           } else {
-//             return candidate; // keep the candidate
-//           }
-//         }),
-//         totalVotes: state.totalVotes + 1
-//       }
-//     default:
-//       return state;
-//   }
-// }
+const reducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case 'CATEGORY_SELECTED':
+      return {
+        ...state,
+        displayList: filterProducts(state, payload),
+      }
+    default:
+      return state;
+  }
+}
 
-// // actions / action creator => a function that returns an action object
-// export const increment = (name) => {
-//   return {
-//     type: 'INCREMENT_VOTES',
-//     payload: name
-//   }
-// }
+function filterProducts(state, payload) {
+  if (payload.name === 'ALL') {
+    return state.list;
+  }
+  let results = state.list.filter(product =>
+    product.category === payload.name
+  )
+  console.log(results);
+  return results;
+}
 
-// export default reducer;
+export default reducer;
